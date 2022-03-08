@@ -9,8 +9,7 @@ struct QuantumOp : torch::CustomClassHolder {
     std::string name;
     std::vector<int8_t> wires;
 
-    // QuantumOp(std::string name_arg) {
-    //     name = name_arg;
+    // QuantumOp() {
     // }
 
     void add_data(torch::Tensor datum) {
@@ -21,6 +20,9 @@ struct QuantumOp : torch::CustomClassHolder {
     //     wires.push_back(wire);
     // }
 };
+
+
+torch::Tensor myadd(QuantumOp ok);
 
 // // struct QuantumCircuit : torch::CustomClassHolder {
 // //     int8_t num_wires;
@@ -39,7 +41,9 @@ struct QuantumOp : torch::CustomClassHolder {
 // }
 
 TORCH_LIBRARY(my_ops, m) {
-  m.def("myadd(torch::Circuit self) -> Tensor");
   m.class_<QuantumOp>("QuantumOp")
+    .def(torch::init())
     .def("add_data", &QuantumOp::add_data);
+  // m.def("myadd", &myadd);
+  m.def("myadd(__torch__.torch.classes.my_ops.QuantumOp circ) -> Tensor");
 }
