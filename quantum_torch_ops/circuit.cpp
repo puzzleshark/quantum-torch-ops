@@ -22,29 +22,23 @@ struct QuantumOp : torch::CustomClassHolder {
 };
 
 
-torch::Tensor myadd(QuantumOp ok);
+struct QuantumCircuit : torch::CustomClassHolder {
+    
+    int64_t num_wires;
+    std::vector<QuantumOp> ops;
 
-// // struct QuantumCircuit : torch::CustomClassHolder {
-// //     int8_t num_wires;
-// //     std::vector<QuantumOp> ops;
+    void add_op(QuantumOp op) {
+        ops.push_back(op);
+    }
+};
 
-// //     void add_op(QuantumOp op) {
-// //         ops.push_back(op);
-// //     }
-// // };
-
-// TORCH_LIBRARY(my_classes, m) {
-//   m.class_<QuantumOp>("QuantumOp")
-//     .def(torch::init<std::string>())
-//     .def("add_data", &QuantumOp::add_data)
-//     .def("add_wire", &QuantumOp::add_wire);
-// }
-
-TORCH_LIBRARY(my_ops, m) {
+TORCH_LIBRARY(pennylane, m) {
   m.class_<QuantumOp>("QuantumOp")
     .def(torch::init())
     .def("add_data", &QuantumOp::add_data)
     .def("add_wire", &QuantumOp::add_wire);
-  // m.def("myadd", &myadd);
-  m.def("myadd(__torch__.torch.classes.my_ops.QuantumOp circ) -> Tensor");
+  m.class_<QuantumCircuit>("QuantumCircuit")
+    .def(torch::init());
+    // .def("add_op(__torch__.torch.classes.pennylane.QuantumOp op) -> void", &QuantumCircuit::add_op);
+  m.def("run_quantum_circuit(__torch__.torch.classes.pennylane.QuantumOp circuit) -> Tensor");
 }
