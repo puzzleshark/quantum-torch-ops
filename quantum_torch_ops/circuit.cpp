@@ -31,27 +31,9 @@ struct QuantumCircuit : torch::CustomClassHolder {
     }
 };
 
-// template <class T>
-// struct MyStackClass : torch::CustomClassHolder {
-//   std::vector<T> stack_;
-//   MyStackClass(std::vector<T> init) : stack_(init.begin(), init.end()) {}
-
-//   void push(T x) {
-//     stack_.push_back(x);
-//   }
-//   T pop() {
-//     auto val = stack_.back();
-//     stack_.pop_back();
-//     return val;
-//   }
-
-//   c10::intrusive_ptr<MyStackClass> clone() const {
-//     return c10::make_intrusive<MyStackClass>(stack_);
-//   }
-
-//   void merge(const c10::intrusive_ptr<MyStackClass>& c) {
-//     for (auto& elem : c->stack_) {
-//       push(elem);
-//     }
-//   }
-// };
+TORCH_LIBRARY(my_classes, m) {
+  m.class_<QuantumOp>("QuantumOp")
+    .def(torch::init<std::string>())
+    .def("add_data", &QuantumOp::add_data)
+    .def("add_wire", &QuantumOp::add_wire);
+}
