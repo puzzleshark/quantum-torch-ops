@@ -11,6 +11,10 @@ struct QuantumOp : torch::CustomClassHolder {
     std::string name;
     std::vector<int8_t> wires;
 
+    QuantumOp(std::string name_arg) {
+        name = name_arg;
+    }
+
     void add_data(torch::Tensor datum) {
         data.push_back(datum);
     }
@@ -23,7 +27,11 @@ struct QuantumOp : torch::CustomClassHolder {
 struct QuantumCircuit : torch::CustomClassHolder {
     int8_t num_wires;
     std::vector<QuantumOp> ops;
-}
+
+    void add_op(QuantumOp op) {
+        ops.push_back(op);
+    }
+};
 
 // template <class T>
 // struct MyStackClass : torch::CustomClassHolder {
