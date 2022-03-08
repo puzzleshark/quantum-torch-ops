@@ -1,10 +1,8 @@
-#include <torch/script.h>
-#include <torch/custom_class.h>
-
-
-
 #include <string>
 #include <vector>
+
+#include <torch/script.h>
+#include <torch/custom_class.h>
 
 struct QuantumOp : torch::CustomClassHolder {
     std::vector<torch::Tensor> data;
