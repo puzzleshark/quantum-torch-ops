@@ -22,14 +22,14 @@ struct QuantumOp : torch::CustomClassHolder {
     }
 };
 
-struct QuantumCircuit : torch::CustomClassHolder {
-    int8_t num_wires;
-    std::vector<QuantumOp> ops;
+// struct QuantumCircuit : torch::CustomClassHolder {
+//     int8_t num_wires;
+//     std::vector<QuantumOp> ops;
 
-    void add_op(QuantumOp op) {
-        ops.push_back(op);
-    }
-};
+//     void add_op(QuantumOp op) {
+//         ops.push_back(op);
+//     }
+// };
 
 TORCH_LIBRARY(my_classes, m) {
   m.class_<QuantumOp>("QuantumOp")
