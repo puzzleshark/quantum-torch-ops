@@ -25,9 +25,9 @@ struct QuantumOp : torch::CustomClassHolder {
 struct QuantumCircuit : torch::CustomClassHolder {
     
     int64_t num_wires;
-    std::vector<QuantumOp> ops;
+    std::vector<c10::intrusive_ptr<QuantumOp>> ops;
 
-    void add_op(QuantumOp op) {
+    void add_op(c10::intrusive_ptr<QuantumOp>& op) {
         ops.push_back(op);
     }
 };
@@ -39,6 +39,6 @@ TORCH_LIBRARY(pennylane, m) {
     .def("add_wire", &QuantumOp::add_wire);
   m.class_<QuantumCircuit>("QuantumCircuit")
     .def(torch::init());
-    // .def("add_op(__torch__.torch.classes.pennylane.QuantumOp op) -> void", &QuantumCircuit::add_op);
+    // .def("add_op(__torch__.torch.classes.pennylane.QuantumOp op) -> None", &QuantumCircuit::add_op);
   m.def("run_quantum_circuit(__torch__.torch.classes.pennylane.QuantumOp circuit) -> Tensor");
 }
