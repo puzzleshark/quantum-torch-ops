@@ -3,11 +3,11 @@ from torch.utils.cpp_extension import BuildExtension, CppExtension
 
 setup(
     name="quantum_torch_ops",
-    py_modules=['foo'],
+    packages=["quantum_torch_ops"],
     ext_modules=[
         CppExtension(
             "quantum_ops",
-            ["quantum_torch_ops/circuit.cpp"],
+            ["circuit.cpp"],
         )
     ],
     cmdclass={"build_ext": BuildExtension.with_options(no_python_abi_suffix=True)},
