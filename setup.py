@@ -3,6 +3,7 @@ from torch.utils.cpp_extension import BuildExtension, CppExtension
 
 setup(
     name="quantum_torch_ops",
+    py_modules=['foo'],
     ext_modules=[
         CppExtension(
             "quantum_ops",
