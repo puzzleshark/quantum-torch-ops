@@ -37,5 +37,5 @@ TORCH_LIBRARY(pennylane, m) {
   m.class_<QuantumCircuit>("QuantumCircuit")
     .def(torch::init())
     .def("add_op", &QuantumCircuit::add_op);
-  m.def("run_quantum_circuit(__torch__.torch.classes.pennylane.QuantumOp circuit) -> Tensor");
+  m.def("run_quantum_circuit(__torch__.torch.classes.pennylane.QuantumCircuit circuit) -> Tensor");
 }
